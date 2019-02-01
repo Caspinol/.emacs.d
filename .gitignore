@@ -1,0 +1,8 @@
+*~
+#*
+tramp
+backups/*
+elpa/*
+ido.last
+places
+history

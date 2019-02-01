@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: node.require
+# key: req
+# binding: direct-keybinding
+# --
+const ${1:$(file-name-nondirectory yas-text)} = require("${1:fs}")$2;$0

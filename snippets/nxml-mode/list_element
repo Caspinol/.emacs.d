@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: list element
+# key: li
+# binding: direct-keybinding
+# --
+<li>$0</li>

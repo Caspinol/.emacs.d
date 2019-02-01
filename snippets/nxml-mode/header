@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: header
+# key: hh
+# binding: direct-keybinding
+# --
+<h${1:2}>$0</h$1>

@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: html.a
+# key: alink
+# binding: direct-keybinding
+# --
+
+<a href="$1" class="${2:btn}">$3</a>$0

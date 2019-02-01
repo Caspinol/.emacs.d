@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: ejs.foreach
+# key: efor
+# binding: direct-keybinding
+# --
+<% ${1:list}.forEach(function(${2:${1:$(file-name-base yas-text)}}){ %>
+    $0
+<% }) %>

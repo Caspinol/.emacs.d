@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: html.form
+# key: form
+# binding: direct-keybinding
+# --
+<form action='$1' method='${2:post}' accept-charset='utf-8' role='form' id='$3' class='$4'>
+      $0        
+</form>

@@ -1,0 +1,9 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: app.post
+# key: post
+# binding: direct-keybinding
+# --
+
+app.post('$1', function(req, res){
+    $0
+});

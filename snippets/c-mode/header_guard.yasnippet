@@ -1,0 +1,12 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: c_header_guard
+# key: guard
+# binding: direct-keybinding
+# --
+
+#ifndef ${1:__`(upcase (file-name-nondirectory (file-name-sans-extension (buffer-file-name))))`_H__}
+#define $1
+
+$0
+
+#endif /* $1 */

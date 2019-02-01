@@ -1,0 +1,9 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: koa-router
+# key: route
+# binding: direct-keybinding
+# --
+
+router.$1('$2', async function(ctx) {
+   $0
+});

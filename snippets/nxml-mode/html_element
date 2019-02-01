@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: html tag
+# key: ml
+# binding: direct-keybinding
+# --
+<${1:} id="$2" class="$3">$0</$1>

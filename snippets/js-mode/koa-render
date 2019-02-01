@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: koa-render
+# key: render
+# binding: direct-keybinding
+# --
+await ctx.render('$1', {$0});
