@@ -437,6 +437,14 @@ Default org document directory
   (defvar org-directory "~/Dropbox/org_doc")
 #+END_SRC
 
+Use the fancy bullets in org-mode.
+#+BEGIN_SRC emacs-lisp
+(use-package org-bullets
+:ensure t
+:config
+(add-hook 'org-mode-hook (lambda() (org-bullets-mode 1))))
+#+END_SRC
+
 
 #+BEGIN_SRC emacs-lisp
   (defvar org-src-fontify-natively t)

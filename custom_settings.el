@@ -32,7 +32,7 @@ static char *note[] = {
 \"#######..#\" };")))
  '(fci-rule-color "#222222")
  '(frame-brackground-mode (quote dark))
- '(gnus-logo-colors (quote ("#2fdbde" "#c0c0c0")))
+ '(gnus-logo-colors (quote ("#2fdbde" "#c0c0c0")) t)
  '(gnus-mode-line-image-cache
    (quote
     (image :type xpm :ascent center :data "/* XPM */
@@ -55,10 +55,10 @@ static char *gnus-pointer[] = {
 \"######..###.######\",
 \"###....####.######\",
 \"###..######.######\",
-\"###########.######\" };")))
+\"###########.######\" };")) t)
  '(package-selected-packages
    (quote
-    (rainbow-mode fzf alect-themes markdown-preview-eww flycheck-mmark ox-hugo toml-mode cargo company-lsp rust-mode flycheck-irony company-irony irony prettier-js git-gutter magit exec-path-from-shell babel font-lock dired json-mode web-mode flycheck flycheck-rust company js2-mode auto-compile powerline autopair color-theme use-package)))
+    (org-bullets rainbow-mode fzf alect-themes markdown-preview-eww flycheck-mmark ox-hugo toml-mode cargo company-lsp rust-mode flycheck-irony company-irony irony prettier-js git-gutter magit exec-path-from-shell babel font-lock dired json-mode web-mode flycheck flycheck-rust company js2-mode auto-compile powerline autopair color-theme use-package)))
  '(vc-annotate-background "#222222")
  '(vc-annotate-color-map
    (quote
@@ -86,5 +86,4 @@ static char *gnus-pointer[] = {
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- 
  )
