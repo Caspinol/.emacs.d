@@ -9,13 +9,14 @@ I wiped my entire old config and decideed to start from *scratch* (wink, wink).
 * Global settings
 
 This is me:
-  #+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (setq user-full-name "Krzysztof Grobelak"
-      user-mail-address "krzysztof.grobelak@gmail.com")
-  #+END_SRC
+	  user-mail-address "krzysztof.grobelak@gmail.com")
+#+END_SRC
 
 
 * Common settings 
+
 
 ** Packages repository
 The package repositories. Lets start from the 2 fundamental ones. I saw people also using the 'org' and 'gnu'
@@ -36,14 +37,14 @@ repositories. If the need arises we can add it in.
 The use-package makes everything so simple. My previous way of using 'require' was a bit cumbersome. 
 Especially since i did not fully know what i was exactly doing...but shhhhh.
 #+BEGIN_SRC emacs-lisp
-  (unless (package-installed-p 'use-package)
-    (package-install 'use-package))
-  (defvar use-package-verbose t)
-  (setq use-package-always-ensure t)
-  (require 'use-package)
-  (use-package auto-compile
-    :config (auto-compile-on-load-mode))
-  (setq load-prefer-newer t)
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+(defvar use-package-verbose t)
+(setq use-package-always-ensure t)
+(require 'use-package)
+(use-package auto-compile
+  :config (auto-compile-on-load-mode))
+(setq load-prefer-newer t)
 #+END_SRC
 
 
@@ -58,8 +59,8 @@ We will place those in a separate file to avoid all clutter
 ** Dependencies
 There is few pacakages that require this as dependency
 #+BEGIN_SRC emacs-lisp
-  (use-package cl
-    :ensure t)
+(use-package cl
+  :ensure t)
 #+END_SRC
 
 
@@ -67,14 +68,14 @@ There is few pacakages that require this as dependency
 
 Ido package offers better management and switching of the minibuffer items
 #+BEGIN_SRC emacs-lisp
-  (use-package ido)
-  (ido-mode 1)
+(use-package ido)
+(ido-mode 1)
 #+END_SRC
 
 Fuzzy finders are great
 #+BEGIN_SRC emacs-lisp
-  (use-package fzf
-      :ensure t)
+(use-package fzf
+  :ensure t)
 #+END_SRC
 
 Colorize strings
@@ -83,116 +84,132 @@ Colorize strings
   :ensure t)
 #+END_SRC
 
+
 ** Theme
 Still looking for the perfect theme. So far this one is the best for me. I will look at tweaking it a little bit 
 in the future.
 #+BEGIN_SRC emacs-lisp
-  (use-package color-theme
-    :config
-    (color-theme-initialize)
-    (color-theme-kingsajz))
+(use-package color-theme
+  :config
+  (color-theme-initialize)
+  (color-theme-kingsajz))
 #+END_SRC
 
 
 ** Look and feel
+
 Most of this settings are pretty self explanatory.
 #+BEGIN_SRC emacs-lisp
-  (defvar mac-option-key-is-meta nil)
-  (defvar mac-command-key-is-meta t)
-  (setq mac-command-modifier 'meta)
-  (setq mac-option-modifier nil)
+(defvar mac-option-key-is-meta nil)
+(defvar mac-command-key-is-meta t)
+(setq mac-command-modifier 'meta)
+(setq mac-option-modifier nil)
 
-  (if (fboundp 'menu-bar-mode) (menu-bar-mode 0))
-  (if (fboundp 'tool-bar-mode) (tool-bar-mode 0))
-  (setq inhibit-startup-message t)
+(if (fboundp 'menu-bar-mode) (menu-bar-mode 0))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode 0))
+(setq inhibit-startup-message t)
 
-  (prefer-coding-system 'utf-8)
-  (setq-default buffer-file-coding-system 'utf-8-auto-unix)
+(prefer-coding-system 'utf-8)
+(setq-default buffer-file-coding-system 'utf-8-auto-unix)
 #+END_SRC
 
 I would love to be able to use fish as my shell but there is plenty of issues with it. 
 So we need to fallback to the basic stuff.
 #+BEGIN_SRC emacs-lisp
-  (setq shell-file-name "/bin/bash")
+(setq shell-file-name "/bin/bash")
 #+END_SRC
 
 Fonts, columns, line numbering, etc...
 #+BEGIN_SRC emacs-lisp
-  (setq select-enable-clipboard t)
+(setq select-enable-clipboard t)
 
-  (defalias 'yes-or-no-p 'y-or-n-p)
-  (global-hl-line-mode 1)
+(defalias 'yes-or-no-p 'y-or-n-p)
+(global-hl-line-mode 1)
 
-  (set-frame-font "Consolas 13")
+(set-frame-font "Consolas 13")
 
-  (global-linum-mode t)
-  (defvar linum-format "%4d \u2502 ")
+(global-linum-mode t)
+(defvar linum-format "%4d \u2502 ")
 
-  ;; Higlight matching parentesis
-  (show-paren-mode)
+;; Higlight matching parentesis
+(show-paren-mode)
 
-  (setq fill-column 80)
+(setq fill-column 80)
 #+END_SRC
 
 Some basic keybindings
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "RET") 'newline-and-indent)
-  (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
-  (global-set-key (kbd "M-/") 'hippie-expand)
-  (global-set-key (kbd "M-+") 'text-scale-increase)
-  (global-set-key (kbd "M--") 'text-scale-decrease)
-  (defun kg/text-scale-reset ()
-    "Set the scale back to original size."
-    (interactive)
-    (text-scale-set 0))
-  (global-set-key (kbd "M-0") 'kg/text-scale-reset)
-  (global-set-key (kbd "C-c C-k") 'compile)
+(global-set-key (kbd "RET") 'newline-and-indent)
+(global-set-key (kbd "C-;") 'comment-or-uncomment-region)
+(global-set-key (kbd "M-/") 'hippie-expand)
+(global-set-key (kbd "M-+") 'text-scale-increase)
+(global-set-key (kbd "M--") 'text-scale-decrease)
+(defun kg/text-scale-reset ()
+  "Set the scale back to original size."
+  (interactive)
+  (text-scale-set 0))
+(global-set-key (kbd "M-0") 'kg/text-scale-reset)
+(global-set-key (kbd "C-c C-k") 'compile)
 #+END_SRC
 
 Env variables
 #+BEGIN_SRC emacs-lisp
-  (use-package exec-path-from-shell
-      :ensure t
-      :config
-      (exec-path-from-shell-initialize))
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (exec-path-from-shell-initialize))
 #+END_SRC
 
 Place cursor in the last location
 #+BEGIN_SRC emacs-lisp
-  (use-package saveplace
-    :defer nil
-    :config
-    (save-place-mode))
+(use-package saveplace
+  :defer nil
+  :config
+  (save-place-mode))
 #+END_SRC
 
 Set up powerline. Not the one from MELPA but its fork: [powerline](https://github.com/jonathanchu/emacs-powerline)
 #+BEGIN_SRC emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/other/emacs-powerline")
-  (require 'powerline)
-  (setq powerline-arrow-shape 'curve) 
+(add-to-list 'load-path "~/.emacs.d/other/emacs-powerline")
+(require 'powerline)
+(setq powerline-arrow-shape 'curve) 
+#+END_SRC
+
+Maximize window on startup
+#+BEGIN_SRC emacs-lisp
+(add-hook 'window-setup-hook 'toggle-frame-maximized t)
 #+END_SRC
 
 
 ** Backups and history
 Backups
 #+BEGIN_SRC emacs-lisp
-  (setq backup-directory-alist `(("." . ,(expand-file-name (concat user-emacs-directory "backups")))))
-  (setq backup-by-copying t)
-  (setq delete-old-versions t kept-new-versions 4 kept-old-versions 2 version-control t)
+(setq backup-directory-alist `(("." . ,(expand-file-name (concat user-emacs-directory "backups")))))
+(setq backup-by-copying t)
+(setq delete-old-versions t kept-new-versions 4 kept-old-versions 2 version-control t)
 #+END_SRC
 
 History
 #+BEGIN_SRC emacs-lisp
-  (setq savehist-file "~/.emacs.d/history")
-  (savehist-mode 1)
-  (setq history-length t)
-  (setq history-delete-duplicates t)
-  (setq savehist-save-minibuffer-history 1)
-  (setq savehist-additional-variables
-	'(kill-ring
-	  search-ring
-	  regexp-search-ring))
+(setq savehist-file "~/.emacs.d/history")
+(savehist-mode 1)
+(setq history-length t)
+(setq history-delete-duplicates t)
+(setq savehist-save-minibuffer-history 1)
+(setq savehist-additional-variables
+	  '(kill-ring
+		search-ring
+		regexp-search-ring))
 
+#+END_SRC
+
+
+** Editor
+
+Do not use tabs. Default 4 spaces.
+#+BEGIN_SRC emacs-lisp
+(setq-default indent-tabs-mode t)
+(setq-default tab-width 4)
 #+END_SRC
 
 
@@ -201,34 +218,34 @@ History
 For now just few helpers to quickly move the text around.
 
 #+BEGIN_SRC emacs-lisp
-  (defun kg/move-line-up ()
-    (interactive)
-    (transpose-lines 1)
-    (forward-line -2))
+(defun kg/move-line-up ()
+  (interactive)
+  (transpose-lines 1)
+  (forward-line -2))
 
-  (defun kg/move-line-down ()
-    (interactive)
-    (forward-line 1)
-    (transpose-lines 1)
-    (forward-line -1))
+(defun kg/move-line-down ()
+  (interactive)
+  (forward-line 1)
+  (transpose-lines 1)
+  (forward-line -1))
 
-  (defun kg/move-words-forward ()
-    (interactive)
-    (forward-word 1)
-    (forward-char 1)
-    (transpose-words 1)
-    (backward-word 1))
+(defun kg/move-words-forward ()
+  (interactive)
+  (forward-word 1)
+  (forward-char 1)
+  (transpose-words 1)
+  (backward-word 1))
 
 
-  (defun kg/move-words-backward ()
-    (interactive)
-    (transpose-words 1)
-    (backward-word 1))
+(defun kg/move-words-backward ()
+  (interactive)
+  (transpose-words 1)
+  (backward-word 1))
 
-  (global-set-key (kbd "M-<up>") 'kg/move-line-up)
-  (global-set-key (kbd "M-<down>") 'kg/move-line-down)
-  (global-set-key (kbd "M-<right>") 'kg/move-words-forward)
-  (global-set-key (kbd "M-<left>") 'kg/move-words-backward)
+(global-set-key (kbd "M-<up>") 'kg/move-line-up)
+(global-set-key (kbd "M-<down>") 'kg/move-line-down)
+(global-set-key (kbd "M-<right>") 'kg/move-words-forward)
+(global-set-key (kbd "M-<left>") 'kg/move-words-backward)
 #+END_SRC
 
 
@@ -263,25 +280,27 @@ Having this all in one place is massive productivity boost.
 * Coding
 
 Now the meat of the config. 
+
 ** Common
 *** Code completion
 #+BEGIN_SRC emacs-lisp
-  (use-package company
-    :init
-    (setq company-minimum-prefix-length 2
-	  company-require-match 0
-	  company-selection-wrap-around t
-	  company-dabbrev-downcase nil
-	  company-tooltip-limit 20
-	  company-tooltip-align-annotations 't
-	  company-idle-delay .4
-	  company-begin-commands '(self-insert-command))
-    (eval-after-load 'company
+(use-package company
+  :init
+  (setq company-minimum-prefix-length 2
+		company-require-match 0
+		company-selection-wrap-around t
+		company-dabbrev-downcase nil
+		company-tooltip-limit 20
+		company-tooltip-align-annotations 't
+		company-idle-delay .4
+		company-begin-commands '(self-insert-command))
+  (eval-after-load 'company
       '(add-to-list 'company-backends '(company-files
-					company-capf)))
-    :config
-    (global-company-mode))
+										company-capf)))
+  :config
+  (global-company-mode))
 #+END_SRC
+
 
 
 *** Code linting
@@ -289,22 +308,23 @@ Now the meat of the config.
 Both the flycheck and Language Server Protocol are very handy. The LSP did not work so great for Rust yet,
 but will set up one for Vue. So keeping it in for now. 
 #+BEGIN_SRC emacs-lisp
-  (use-package flycheck
-    :ensure t
-    :diminish flycheck-mode
-    :defer 2
-    :config
-    (global-flycheck-mode))
+(use-package flycheck
+  :ensure t
+  :diminish flycheck-mode
+  :defer 2
+  :config
+  (global-flycheck-mode))
 
-  (use-package lsp-mode
-    :commands lsp
-    :config (require 'lsp-clients))
+(use-package lsp-mode
+  :commands lsp
+  :config (require 'lsp-clients))
+
 #+END_SRC
 
 Highlight the pairs of braces and quotes.
 #+BEGIN_SRC emacs-lisp
-  (use-package autopair
-    :ensure t)
+(use-package autopair
+  :ensure t)
 #+END_SRC
 
 
@@ -312,72 +332,97 @@ Highlight the pairs of braces and quotes.
 
 Git support. The tool is great so far but i only licked the surface so far.
 #+BEGIN_SRC emacs-lisp
-  (use-package magit
-      :ensure t
-      :bind ("C-x m" . magit-status))
+(use-package magit
+  :ensure t
+  :bind ("C-x m" . magit-status))
 #+END_SRC
 
 
 
 ** Javascript
-#+BEGIN_SRC emacs-lisp
-  (use-package js2-mode
-    :ensure t
-    :mode ("\\.js$" . js2-mode))
 
-  ;; Cool javascript formatter
-  (use-package prettier-js
-      :ensure t
-      :config
-      (setq prettier-js-args '(
-			    "--trailing-comma" "es5"
-			    "--single-quote" "true"
-			    "--print-width" "100"
-			    ))
-      (add-hook 'js2-mode-hook 'prettier-js-mode))
+#+BEGIN_SRC emacs-lisp
+(use-package js2-mode
+  :ensure t
+  :mode ("\\.js$" . js2-mode)
+  :config
+  (setq js-indent-level 2))
+
+;; Cool javascript formatter
+(use-package prettier-js
+  :ensure t
+  :config
+  (setq prettier-js-args '(
+						   "--trailing-comma" "es5"
+						   "--single-quote" "true"
+						   "--print-width" "100"
+						   ))
+  (add-hook 'js2-mode-hook 'prettier-js-mode))
 #+END_SRC
 
 Replace the 'function' keyword with a shorthand symbol. Its just estetics...
 #+BEGIN_SRC emacs-lisp
-  (font-lock-add-keywords
-   'js2-mode `(("\\(function\\).*("
-		(0 (progn (compose-region (match-beginning 1)
-					  (match-end 1) "\u0192")
-			  nil)))))
+(font-lock-add-keywords
+ 'js2-mode `(("\\(function\\).*("
+			  (0 (progn (compose-region (match-beginning 1)
+										(match-end 1) "\u0192")
+						nil)))))
 #+END_SRC 
+
+
+** Vue
+
+Will use both modes
+#+BEGIN_SRC emacs-lisp
+(use-package vue-mode
+  :ensure t
+  :config
+  (setq js-indent-level 2)
+  (setq mmm-submode-decoration-level 2)
+  (add-hook 'mmm-mode-hook
+			(lambda ()
+              (set-face-background 'mmm-default-submode-face nil))))
+#+END_SRC
+
 
 ** JSON
 #+BEGIN_SRC emacs-lisp
-  (use-package json-mode
-    :ensure t
-    :mode "\\.json$")
+(use-package json-mode
+  :ensure t
+  :mode "\\.json$")
 #+END_SRC
 
 
 ** Web
 #+BEGIN_SRC emacs-lisp
-  (use-package web-mode
-    :ensure t
-    :mode ("\\.html$" . web-mode))
+(use-package web-mode
+  :ensure t
+  :mode ("\\.html$" . web-mode))
+#+END_SRC
+
+
+** CSS
+#+BEGIN_SRC emacs-lisp
+(add-hook 'css-mode-hook 'rainbow-mode)
 #+END_SRC
 
 
 ** C
 #+BEGIN_SRC emacs-lisp
-  (use-package irony
-    :ensure t
-    :hook (c-mode . irony-mode))
+(use-package irony
+  :ensure t
+  :hook (c-mode . irony-mode))
 
-  (use-package company-irony
-    :ensure t
-    :after company
-    :config
-    (add-to-list 'company-backends 'company-irony))
+(use-package company-irony
+  :ensure t
+  :after company
+  :config
+  (add-to-list 'company-backends 'company-irony))
 
-  (use-package flycheck-irony
-    :ensure t
-    :after flycheck
-    :hook (flycheck-mode . flycheck-irony-setup))
+(use-package flycheck-irony
+  :ensure t
+  :after flycheck
+  :hook (flycheck-mode . flycheck-irony-setup))
 #+END_SRC
 
 
@@ -385,48 +430,48 @@ Replace the 'function' keyword with a shorthand symbol. Its just estetics...
 
 The main config file for Rust projects is in .toml format... so why not.
 #+BEGIN_SRC emacs-lisp
-  (use-package toml-mode
-    :ensure t)
+(use-package toml-mode
+  :ensure t)
 #+END_SRC
 
 Syntax highlighting. Also added a hook to execute the rustfmt just before saving it. 
 #+BEGIN_SRC emacs-lisp
-  (use-package rust-mode
-    :ensure t
-    :hook
-    (rust-mode . lsp)
-    (before-save . (lambda()
-		     "Format the code before saving"
-		     (when (eq major-mode 'rust-mode)
-		       (rust-format-buffer)))))
+(use-package rust-mode
+  :ensure t
+  :hook
+  (rust-mode . lsp)
+  (before-save . (lambda()
+				   "Format the code before saving"
+				   (when (eq major-mode 'rust-mode)
+					 (rust-format-buffer)))))
 #+END_SRC
 
 Cargo is the package manager and so much more.
 #+BEGIN_SRC emacs-lisp
-  (use-package cargo
-    :ensure t
-    :hook (rust-mode . cargo-minor-mode))
+(use-package cargo
+  :ensure t
+  :hook (rust-mode . cargo-minor-mode))
 #+END_SRC
 
 And compiler checking
 #+BEGIN_SRC emacs-lisp
-  (use-package flycheck-rust
-    :config (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
+(use-package flycheck-rust
+  :config (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 #+END_SRC
+
 
 ** Markdown
 #+BEGIN_SRC emacs-lisp
-  (use-package markdown-mode
-    :ensure t
-    :commands (markdown-mode gfm-mode)
-    :mode (("README\\.md\\'" . gfm-mode)
-	   ("\\.md\\'" . markdown-mode)
-	   ("\\.markdown\\'" . markdown-mode))
-    :init (setq markdown-command "multimarkdown")
-    :hook
-    (markdown-mode . visual-line-mode)
-    (markdown-mode . variable-pitch-mode))
-
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+		 ("\\.md\\'" . markdown-mode)
+		 ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown")
+  :hook
+  (markdown-mode . visual-line-mode)
+  (markdown-mode . variable-pitch-mode))
 #+END_SRC
 
 
@@ -434,38 +479,39 @@ And compiler checking
 
 Default org document directory
 #+BEGIN_SRC emacs-lisp
-  (defvar org-directory "~/Dropbox/org_doc")
+(defvar org-directory "~/Dropbox/org_doc")
 #+END_SRC
 
 Use the fancy bullets in org-mode.
 #+BEGIN_SRC emacs-lisp
 (use-package org-bullets
-:ensure t
-:config
-(add-hook 'org-mode-hook (lambda() (org-bullets-mode 1))))
+  :ensure t
+  :config
+  (add-hook 'org-mode-hook (lambda() (org-bullets-mode 1))))
 #+END_SRC
 
 
 #+BEGIN_SRC emacs-lisp
-  (defvar org-src-fontify-natively t)
-  (defvar org-src-tab-acts-natively t)
+(setq org-src-fontify-natively t)
+(setq org-src-tab-acts-natively t)
+(setq org-src-preserve-indentation t)
 
-  ;; Export as markdown files
-  (use-package ox-md
-    :ensure nil
-    :defer 3
-    :after org)
+;; Export as markdown files
+(use-package ox-md
+  :ensure nil
+  :defer 3
+  :after org)
 
-  ;; Hugo support
-  (use-package ox-hugo
-    :defer 3
-    :after org)
+;; Hugo support
+(use-package ox-hugo
+  :defer 3
+  :after org)
 
-  (use-package babel
-    :ensure t
-    :init
-    (defvar org-confirm-babel-evaluate nil)
-    :defer t)
+(use-package babel
+  :ensure t
+  :init
+  (defvar org-confirm-babel-evaluate nil)
+  :defer t)
 
 #+END_SRC
 
