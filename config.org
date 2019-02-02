@@ -83,18 +83,15 @@ Colorize strings
 (use-package rainbow-mode
   :ensure t)
 #+END_SRC
-
-
 ** Theme
 Still looking for the perfect theme. So far this one is the best for me. I will look at tweaking it a little bit 
 in the future.
 #+BEGIN_SRC emacs-lisp
-(use-package color-theme
-  :config
-  (color-theme-initialize)
-  (color-theme-kingsajz))
+;;(use-package kaolin-themes)
+;;(load-theme 'kaolin-galaxy)
+(use-package gruvbox-theme)
+(load-theme 'gruvbox-dark-hard)
 #+END_SRC
-
 
 ** Look and feel
 
@@ -295,8 +292,8 @@ Now the meat of the config.
 		company-idle-delay .4
 		company-begin-commands '(self-insert-command))
   (eval-after-load 'company
-      '(add-to-list 'company-backends '(company-files
-										company-capf)))
+    '(add-to-list 'company-backends '(company-files
+									  company-capf)))
   :config
   (global-company-mode))
 #+END_SRC
@@ -307,6 +304,7 @@ Now the meat of the config.
 
 Both the flycheck and Language Server Protocol are very handy. The LSP did not work so great for Rust yet,
 but will set up one for Vue. So keeping it in for now. 
+
 #+BEGIN_SRC emacs-lisp
 (use-package flycheck
   :ensure t
@@ -479,7 +477,23 @@ And compiler checking
 
 Default org document directory
 #+BEGIN_SRC emacs-lisp
-(defvar org-directory "~/Dropbox/org_doc")
+(use-package org
+  :bind
+  ("C-c l" . org-store-link)
+  ("C-c a" . org-agenda)
+  ("C-c c" . org-capture)
+  :custom
+  (org-log-done t)
+  (org-startup-indented t)
+  (org-confirm-babel-evaluate nil)
+  (org-src-fontify-natively t)
+  (org-src-tab-acts-natively t)
+  (org-hide-emphasis-markers t)
+  (org-src-preserve-indentation t)
+  (org-directory "~/Dropbox/OrgDoc")
+  (org-agenda-files (list "~/Dropbox/OrgDoc/agenda/" "~/Dropbox/OrgDoc/Projects"))
+  (org-default-notes-file (concat org-directory "/notes.org")))
+
 #+END_SRC
 
 Use the fancy bullets in org-mode.
@@ -492,10 +506,6 @@ Use the fancy bullets in org-mode.
 
 
 #+BEGIN_SRC emacs-lisp
-(setq org-src-fontify-natively t)
-(setq org-src-tab-acts-natively t)
-(setq org-src-preserve-indentation t)
-
 ;; Export as markdown files
 (use-package ox-md
   :ensure nil

@@ -7,7 +7,7 @@
    ["#3f3f3f" "#ea3838" "#7fb07f" "#fe8b04" "#62b6ea" "#e353b9" "#1fb3b3" "#d5d2be"])
  '(custom-safe-themes
    (quote
-	("a0feb1322de9e26a4d209d1cfa236deaf64662bb604fa513cca6a057ddf0ef64" "ab04c00a7e48ad784b52f34aa6bfa1e80d0c3fcacc50e1189af3651013eb0d58" "04dd0236a367865e591927a3810f178e8d33c372ad5bfef48b5ce90d4b476481" "7356632cebc6a11a87bc5fcffaa49bae528026a78637acd03cae57c091afd9b9" "47ec21abaa6642fefec1b7ace282221574c2dd7ef7715c099af5629926eb4fd7" default)))
+	("e2fd81495089dc09d14a88f29dfdff7645f213e2c03650ac2dd275de52a513de" "2a9039b093df61e4517302f40ebaf2d3e95215cb2f9684c8c1a446659ee226b9" "d2868794b5951d57fb30bf223a7e46f3a18bf7124a1c288a87bd5701b53d775a" "9f08dacc5b23d5eaec9cccb6b3d342bd4fdb05faf144bdcd9c4b5859ac173538" "7f89ec3c988c398b88f7304a75ed225eaac64efa8df3638c815acc563dfd3b55" "a0feb1322de9e26a4d209d1cfa236deaf64662bb604fa513cca6a057ddf0ef64" "ab04c00a7e48ad784b52f34aa6bfa1e80d0c3fcacc50e1189af3651013eb0d58" "04dd0236a367865e591927a3810f178e8d33c372ad5bfef48b5ce90d4b476481" "7356632cebc6a11a87bc5fcffaa49bae528026a78637acd03cae57c091afd9b9" "47ec21abaa6642fefec1b7ace282221574c2dd7ef7715c099af5629926eb4fd7" default)))
  '(diary-entry-marker (quote font-lock-variable-name-face))
  '(emms-mode-line-icon-image-cache
    (quote
@@ -56,9 +56,21 @@ static char *gnus-pointer[] = {
 \"###....####.######\",
 \"###..######.######\",
 \"###########.######\" };")) t)
+ '(org-agenda-files
+   (quote
+	("~/Dropbox/OrgDoc/agenda/" "~/Dropbox/OrgDoc/Projects")))
+ '(org-confirm-babel-evaluate nil)
+ '(org-default-notes-file "~/Dropbox/OrgDoc/notes.org")
+ '(org-directory "~/Dropbox/OrgDoc")
+ '(org-hide-emphasis-markers t)
+ '(org-log-done t)
+ '(org-src-fontify-natively t)
+ '(org-src-preserve-indentation t)
+ '(org-src-tab-acts-natively t)
+ '(org-startup-indented t)
  '(package-selected-packages
    (quote
-	(vue-mode vue-html-mode org-bullets rainbow-mode fzf alect-themes markdown-preview-eww flycheck-mmark ox-hugo toml-mode cargo company-lsp rust-mode flycheck-irony company-irony irony prettier-js git-gutter magit exec-path-from-shell babel font-lock dired json-mode web-mode flycheck flycheck-rust company js2-mode auto-compile powerline autopair color-theme use-package)))
+	(darktooth-theme kaolin-themes gruvbox-theme vue-mode vue-html-mode org-bullets rainbow-mode fzf alect-themes markdown-preview-eww flycheck-mmark ox-hugo toml-mode cargo company-lsp rust-mode flycheck-irony company-irony irony prettier-js git-gutter magit exec-path-from-shell babel font-lock dired json-mode web-mode flycheck flycheck-rust company js2-mode auto-compile powerline autopair color-theme use-package)))
  '(vc-annotate-background "#222222")
  '(vc-annotate-color-map
    (quote
