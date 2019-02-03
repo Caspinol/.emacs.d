@@ -299,7 +299,6 @@ Now the meat of the config.
 #+END_SRC
 
 
-
 *** Code linting
 
 Both the flycheck and Language Server Protocol are very handy. The LSP did not work so great for Rust yet,
@@ -314,8 +313,13 @@ but will set up one for Vue. So keeping it in for now.
   (global-flycheck-mode))
 
 (use-package lsp-mode
+  :ensure t
   :commands lsp
-  :config (require 'lsp-clients))
+  :config 
+  (require 'lsp-clients)
+  (use-package company-lsp
+	:ensure t
+	:after lsp-mode))
 
 #+END_SRC
 
@@ -334,8 +338,6 @@ Git support. The tool is great so far but i only licked the surface so far.
   :ensure t
   :bind ("C-x m" . magit-status))
 #+END_SRC
-
-
 
 ** Javascript
 
@@ -434,21 +436,22 @@ The main config file for Rust projects is in .toml format... so why not.
 
 Syntax highlighting. Also added a hook to execute the rustfmt just before saving it. 
 #+BEGIN_SRC emacs-lisp
-(use-package rust-mode
-  :ensure t
-  :hook
-  (rust-mode . lsp)
-  (before-save . (lambda()
-				   "Format the code before saving"
-				   (when (eq major-mode 'rust-mode)
-					 (rust-format-buffer)))))
+;(use-package rust-mode
+;  :ensure t
+;  :mode ("\\.rs$" . rust-mode)
+;  :hook
+;  (rust-mode . lsp)
+;  (before-save . (lambda()
+;				   "Format the code before saving"
+;				   (when (eq major-mode 'rust-mode)
+;					 (rust-format-buffer)))))
 #+END_SRC
 
 Cargo is the package manager and so much more.
 #+BEGIN_SRC emacs-lisp
 (use-package cargo
   :ensure t
-  :hook (rust-mode . cargo-minor-mode))
+  :hook (rustic-mode . cargo-minor-mode))
 #+END_SRC
 
 And compiler checking
@@ -457,6 +460,15 @@ And compiler checking
   :config (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 #+END_SRC
 
+
+Trying our the new mode.
+#+BEGIN_SRC emacs-lisp
+(use-package rustic
+  :ensure t
+  :mode ("\\.rs$" . rustic-mode)
+  :hook
+  (rustic-mode . lsp))
+#+END_SRC
 
 ** Markdown
 #+BEGIN_SRC emacs-lisp
@@ -523,5 +535,7 @@ Use the fancy bullets in org-mode.
   (defvar org-confirm-babel-evaluate nil)
   :defer t)
 
+(use-package ob-rust
+  :ensure t)
 #+END_SRC
 
