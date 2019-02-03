@@ -299,7 +299,7 @@ Now the meat of the config.
 #+END_SRC
 
 
-*** Code linting
+*** Code autocompletion
 
 Both the flycheck and Language Server Protocol are very handy. The LSP did not work so great for Rust yet,
 but will set up one for Vue. So keeping it in for now. 
@@ -326,7 +326,9 @@ but will set up one for Vue. So keeping it in for now.
 Highlight the pairs of braces and quotes.
 #+BEGIN_SRC emacs-lisp
 (use-package autopair
-  :ensure t)
+  :ensure t
+:config
+(electric-pair-mode))
 #+END_SRC
 
 
@@ -434,40 +436,28 @@ The main config file for Rust projects is in .toml format... so why not.
   :ensure t)
 #+END_SRC
 
-Syntax highlighting. Also added a hook to execute the rustfmt just before saving it. 
+Trying our the new mode.
 #+BEGIN_SRC emacs-lisp
-;(use-package rust-mode
-;  :ensure t
-;  :mode ("\\.rs$" . rust-mode)
-;  :hook
-;  (rust-mode . lsp)
-;  (before-save . (lambda()
-;				   "Format the code before saving"
-;				   (when (eq major-mode 'rust-mode)
-;					 (rust-format-buffer)))))
-#+END_SRC
-
-Cargo is the package manager and so much more.
-#+BEGIN_SRC emacs-lisp
-(use-package cargo
+(use-package rust-mode
   :ensure t
-  :hook (rustic-mode . cargo-minor-mode))
+  :mode ("\\.rs$" . rust-mode)
+  :hook
+  (rust-mode . lsp)
+  (rust-mode . (lambda()
+				 (local-set-key (kbd "TAB") 'company-indent-or-complete-common))))
 #+END_SRC
 
-And compiler checking
+Flycheck rust
 #+BEGIN_SRC emacs-lisp
 (use-package flycheck-rust
   :config (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 #+END_SRC
 
-
-Trying our the new mode.
+Cargo mode
 #+BEGIN_SRC emacs-lisp
-(use-package rustic
+(use-package cargo
   :ensure t
-  :mode ("\\.rs$" . rustic-mode)
-  :hook
-  (rustic-mode . lsp))
+  :hook (rustic-mode . cargo-minor-mode))
 #+END_SRC
 
 ** Markdown
