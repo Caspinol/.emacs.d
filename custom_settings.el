@@ -56,9 +56,7 @@ static char *gnus-pointer[] = {
 \"###....####.######\",
 \"###..######.######\",
 \"###########.######\" };")) t)
- '(org-agenda-files
-   (quote
-	("~/Dropbox/OrgDoc/agenda/" "~/Dropbox/OrgDoc/Projects")))
+ '(org-agenda-files nil)
  '(org-confirm-babel-evaluate nil)
  '(org-default-notes-file "~/Dropbox/OrgDoc/notes.org")
  '(org-directory "~/Dropbox/OrgDoc")

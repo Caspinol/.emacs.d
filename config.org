@@ -17,7 +17,6 @@ This is me:
 
 * Common settings 
 
-
 ** Packages repository
 The package repositories. Lets start from the 2 fundamental ones. I saw people also using the 'org' and 'gnu'
 repositories. If the need arises we can add it in.
@@ -37,6 +36,7 @@ repositories. If the need arises we can add it in.
 The use-package makes everything so simple. My previous way of using 'require' was a bit cumbersome. 
 Especially since i did not fully know what i was exactly doing...but shhhhh.
 #+BEGIN_SRC emacs-lisp
+
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 (defvar use-package-verbose t)
@@ -45,6 +45,7 @@ Especially since i did not fully know what i was exactly doing...but shhhhh.
 (use-package auto-compile
   :config (auto-compile-on-load-mode))
 (setq load-prefer-newer t)
+
 #+END_SRC
 
 
@@ -83,6 +84,8 @@ Colorize strings
 (use-package rainbow-mode
   :ensure t)
 #+END_SRC
+
+
 ** Theme
 Still looking for the perfect theme. So far this one is the best for me. I will look at tweaking it a little bit 
 in the future.
@@ -92,6 +95,7 @@ in the future.
 (use-package gruvbox-theme)
 (load-theme 'gruvbox-dark-hard)
 #+END_SRC
+
 
 ** Look and feel
 
@@ -243,6 +247,7 @@ For now just few helpers to quickly move the text around.
 (global-set-key (kbd "M-<down>") 'kg/move-line-down)
 (global-set-key (kbd "M-<right>") 'kg/move-words-forward)
 (global-set-key (kbd "M-<left>") 'kg/move-words-backward)
+
 #+END_SRC
 
 
@@ -250,25 +255,25 @@ For now just few helpers to quickly move the text around.
 I still use the IRC quite often. Swithing between windows get old very quickly. 
 Having this all in one place is massive productivity boost.
 #+BEGIN_SRC emacs-lisp
-(use-package erc)
-(erc-autojoin-mode t)
-
-;; keep private stuff private
 (load "~/.private.el")
-(erc-services-mode 1)
+(use-package erc
+  :ensure t
+  :config
+  (erc-autojoin-mode t)
+  (erc-services-mode 1)
 
-(setq erc-prompt-for-nickserv-password nil)
-(setq erc-nickserv-passwords
-      '((freenode (("caspinol" . ,freenode-password)))))
-
-                                        ; IRC auto connect on C-c ef
-(global-set-key "\C-cef" (lambda () (interactive)
+  (setq erc-prompt-for-nickserv-password nil)
+  (setq erc-nickserv-passwords
+		'((freenode (("caspinol" . ,freenode-password))))))
+;; IRC auto connect on C-c ef
+(global-set-key "\C-cef" (lambda () 
+						   (interactive)
                            (erc :server "irc.freenode.net"
                                 :port "6667"
                                 :nick "caspinol"
                                 )))
 
-                                        ; now auto join channels
+;; now auto join channels
 (setq erc-autojoin-channels-alist '(("freenode.net"
                                      "#rust" "##c" "#rust-embedded" "#rust-networking")))
 #+END_SRC
@@ -340,6 +345,7 @@ Git support. The tool is great so far but i only licked the surface so far.
   :ensure t
   :bind ("C-x m" . magit-status))
 #+END_SRC
+
 
 ** Javascript
 
@@ -460,7 +466,9 @@ Cargo mode
   :hook (rustic-mode . cargo-minor-mode))
 #+END_SRC
 
+
 ** Markdown
+
 #+BEGIN_SRC emacs-lisp
 (use-package markdown-mode
   :ensure t
@@ -493,17 +501,47 @@ Default org document directory
   (org-hide-emphasis-markers t)
   (org-src-preserve-indentation t)
   (org-directory "~/Dropbox/OrgDoc")
-  (org-agenda-files (list "~/Dropbox/OrgDoc/agenda/" "~/Dropbox/OrgDoc/Projects"))
-  (org-default-notes-file (concat org-directory "/notes.org")))
+  (org-agenda-files (list "~/Dropbox/OrgDoc/Agenda/" "~/Dropbox/OrgDoc/Projects/" "~/Dropbox/OrgDoc/"))
+  (org-default-notes-file (concat org-directory "/refile.org"))
+  (org-deadline-warning-days 7)
+  (org-agenda-span 'fortnight)
+  (org-agenda-skip-scheduled-if-deadline-is-shown t)
+  :config
+  (setq org-capture-templates
+        '(("t" "TODO" entry 
+		   (file+headline org-default-notes-file "Task")
+           "* TODO %? %^G \n  %U" :empty-lines 1)
+          
+		  ("s" "Scheduled TODO" entry 
+		   (file+headline "~/Dropbox/OrgDoc/Projects/enet.org" "Task")
+           "* TODO %? %^G \nSCHEDULED: %^t\n  %U" :empty-lines 1)
+          
+		  ("d" "Deadline" entry 
+		   (file+headline "~/Dropbox/OrgDoc/Projects/enet.org" "Task")
+           "* TODO %? %^G \n  DEADLINE: %^t" :empty-lines 1)
+          
+		  ("a" "Appointment" entry 
+		   (file+headline org-default-notes-file "Life")
+           "* %? %^G \n  %^t")
+		  
+		  ("i" "Idea" entry 
+		   (file+headline org-default-notes-file "Idea")
+		   "* Idea %? %^G\n%U" :empty-lines 1)
+          
+		  ("n" "Note" entry 
+		   (file+headline org-default-notes-file "Notes")
+           "* %? %^G\n%U" :empty-lines 1))))
 
 #+END_SRC
+
 
 Use the fancy bullets in org-mode.
 #+BEGIN_SRC emacs-lisp
 (use-package org-bullets
   :ensure t
-  :config
-  (add-hook 'org-mode-hook (lambda() (org-bullets-mode 1))))
+  :hook
+  (org-mode . (lambda() 
+			  (org-bullets-mode 1))))
 #+END_SRC
 
 
