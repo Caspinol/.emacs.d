@@ -65,7 +65,7 @@ There is few pacakages that require this as dependency
 #+END_SRC
 
 
-** Buffer enchancers
+** Buffers
 
 Ido package offers better management and switching of the minibuffer items
 #+BEGIN_SRC emacs-lisp
@@ -173,7 +173,7 @@ Set up powerline. Not the one from MELPA but its fork: [powerline](https://githu
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'load-path "~/.emacs.d/other/emacs-powerline")
 (require 'powerline)
-(setq powerline-arrow-shape 'curve) 
+(setq powerline-arrow-shape 'arrow) 
 #+END_SRC
 
 Maximize window on startup
@@ -306,8 +306,7 @@ Now the meat of the config.
 
 *** Code autocompletion
 
-Both the flycheck and Language Server Protocol are very handy. The LSP did not work so great for Rust yet,
-but will set up one for Vue. So keeping it in for now. 
+Both the flycheck and Language Server Protocol are very handy. 
 
 #+BEGIN_SRC emacs-lisp
 (use-package flycheck
@@ -317,16 +316,19 @@ but will set up one for Vue. So keeping it in for now.
   :config
   (global-flycheck-mode))
 
-(use-package lsp-mode
-  :ensure t
-  :commands lsp
-  :config 
-  (require 'lsp-clients)
-  (use-package company-lsp
-	:ensure t
-	:after lsp-mode))
-
 #+END_SRC
+
+eglot is a new LSP client. Lets test it.
+#+BEGIN_SRC emacs-lisp
+(use-package eglot
+  :pin melpa
+  :ensure t
+  :hook
+  (rust-mode . eglot-ensure)
+  :bind
+  ("C-c h" . 'eglot-help-at-point))
+#+END_SRC
+
 
 Highlight the pairs of braces and quotes.
 #+BEGIN_SRC emacs-lisp
@@ -448,9 +450,13 @@ Trying our the new mode.
   :ensure t
   :mode ("\\.rs$" . rust-mode)
   :hook
-  (rust-mode . lsp)
   (rust-mode . (lambda()
-				 (local-set-key (kbd "TAB") 'company-indent-or-complete-common))))
+				 (local-set-key (kbd "TAB") 'company-indent-or-complete-common)))
+  :config
+  (setq rust-format-on-save t)
+  :bind
+  ("C-c C-b" . rust-compile)
+  ("C-c C-r" . cargo-process-run))
 #+END_SRC
 
 Flycheck rust
@@ -463,7 +469,7 @@ Cargo mode
 #+BEGIN_SRC emacs-lisp
 (use-package cargo
   :ensure t
-  :hook (rustic-mode . cargo-minor-mode))
+  :hook (rust-mode . cargo-minor-mode))
 #+END_SRC
 
 
@@ -544,7 +550,7 @@ Use the fancy bullets in org-mode.
 			  (org-bullets-mode 1))))
 #+END_SRC
 
-
+Some helpers for org-mode
 #+BEGIN_SRC emacs-lisp
 ;; Export as markdown files
 (use-package ox-md
@@ -567,3 +573,8 @@ Use the fancy bullets in org-mode.
   :ensure t)
 #+END_SRC
 
+
+* Tramp
+#+BEGIN_SRC emacs-lisp
+(setq tramp-default-method "ssh")
+#+END_SRC
