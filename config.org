@@ -127,7 +127,7 @@ Fonts, columns, line numbering, etc...
 (defalias 'yes-or-no-p 'y-or-n-p)
 (global-hl-line-mode 1)
 
-(set-frame-font "Consolas 13")
+(set-frame-font "Monaco 13")
 
 (global-linum-mode t)
 (defvar linum-format "%4d \u2502 ")
@@ -456,7 +456,7 @@ Trying our the new mode.
   (setq rust-format-on-save t)
   :bind
   ("C-c C-b" . rust-compile)
-  ("C-c C-r" . cargo-process-run))
+  ("C-c e r" . eglot-rename))
 #+END_SRC
 
 Flycheck rust
@@ -571,6 +571,17 @@ Some helpers for org-mode
 
 (use-package ob-rust
   :ensure t)
+#+END_SRC
+
+
+* Yasnippets
+#+BEGIN_SRC emacs-lisp
+(use-package yasnippet
+  :ensure t
+  :config
+  (setq yas-snipped-dirs '("~/.emacs.d/snippets/"))
+  (yas-global-mode 1))
+
 #+END_SRC
 
 

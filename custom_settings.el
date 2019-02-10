@@ -56,9 +56,41 @@ static char *gnus-pointer[] = {
 \"###....####.######\",
 \"###..######.######\",
 \"###########.######\" };")) t)
- '(org-agenda-files nil)
+ '(org-agenda-files
+   (quote
+	("~/Dropbox/OrgDoc/Agenda/" "~/Dropbox/OrgDoc/Projects/" "~/Dropbox/OrgDoc/")))
+ '(org-agenda-skip-scheduled-if-deadline-is-shown t)
+ '(org-agenda-span (quote fortnight))
+ '(org-capture-templates
+   (quote
+	(("t" "TODO" entry
+	  (file+headline org-default-notes-file "Task")
+	  "* TODO %? %^G 
+  %U" :empty-lines 1)
+	 ("s" "Company TODO" entry
+	  (file+headline "~/Dropbox/OrgDoc/Projects/enet.org" "Task")
+	  "* TODO %? %^G 
+SCHEDULED: %^t
+  %U" :empty-lines 1)
+	 ("d" "Deadline" entry
+	  (file+headline "~/Dropbox/OrgDoc/Projects/enet.org" "Task Deadline")
+	  "* TODO %? %^G 
+  DEADLINE: %^t" :empty-lines 1)
+	 ("a" "Appointment" entry
+	  (file+headline org-default-notes-file "Life")
+	  "* %? %^G 
+  %^t")
+	 ("i" "Idea" entry
+	  (file+headline org-default-notes-file "Idea")
+	  "* Idea %? %^G
+%U" :empty-lines 1)
+	 ("n" "Note" entry
+	  (file+headline org-default-notes-file "Notes")
+	  "* %? %^G
+%U" :empty-lines 1))))
  '(org-confirm-babel-evaluate nil)
- '(org-default-notes-file "~/Dropbox/OrgDoc/notes.org")
+ '(org-deadline-warning-days 7)
+ '(org-default-notes-file "~/Dropbox/OrgDoc/refile.org")
  '(org-directory "~/Dropbox/OrgDoc")
  '(org-hide-emphasis-markers t)
  '(org-log-done t)
@@ -68,7 +100,7 @@ static char *gnus-pointer[] = {
  '(org-startup-indented t)
  '(package-selected-packages
    (quote
-	(rustic ob-rust darktooth-theme kaolin-themes gruvbox-theme vue-mode vue-html-mode org-bullets rainbow-mode fzf alect-themes markdown-preview-eww flycheck-mmark ox-hugo toml-mode cargo company-lsp flycheck-irony company-irony irony prettier-js magit exec-path-from-shell babel font-lock dired json-mode web-mode flycheck flycheck-rust company js2-mode auto-compile powerline autopair color-theme use-package)))
+	(yasnippet yasnipped package-lint eglot ob-rust darktooth-theme kaolin-themes gruvbox-theme vue-mode vue-html-mode org-bullets rainbow-mode fzf markdown-preview-eww flycheck-mmark ox-hugo toml-mode cargo company-lsp flycheck-irony company-irony irony prettier-js magit exec-path-from-shell babel font-lock dired json-mode web-mode flycheck flycheck-rust company js2-mode powerline autopair use-package)))
  '(vc-annotate-background "#222222")
  '(vc-annotate-color-map
    (quote
@@ -96,4 +128,5 @@ static char *gnus-pointer[] = {
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(mode-line ((t (:foreground "#030303" :background "#bdbdbd" :box nil))))
+ '(mode-line-inactive ((t (:foreground "#f9f9f9" :background "#666666" :box nil)))))
