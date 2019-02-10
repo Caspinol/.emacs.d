@@ -14,6 +14,13 @@ This is me:
 	  user-mail-address "krzysztof.grobelak@gmail.com")
 #+END_SRC
 
+Organize windows nicely
+#+BEGIN_SRC emacs-lisp
+(use-package zoom
+  :ensure t
+  :config
+  (zoom-mode t))
+#+END_SRC
 
 * Common settings 
 

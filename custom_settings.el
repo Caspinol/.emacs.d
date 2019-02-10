@@ -100,7 +100,7 @@ SCHEDULED: %^t
  '(org-startup-indented t)
  '(package-selected-packages
    (quote
-	(yasnippet yasnipped package-lint eglot ob-rust darktooth-theme kaolin-themes gruvbox-theme vue-mode vue-html-mode org-bullets rainbow-mode fzf markdown-preview-eww flycheck-mmark ox-hugo toml-mode cargo company-lsp flycheck-irony company-irony irony prettier-js magit exec-path-from-shell babel font-lock dired json-mode web-mode flycheck flycheck-rust company js2-mode powerline autopair use-package)))
+	(zoom yasnippet yasnipped package-lint eglot ob-rust darktooth-theme kaolin-themes gruvbox-theme vue-mode vue-html-mode org-bullets rainbow-mode fzf markdown-preview-eww flycheck-mmark ox-hugo toml-mode cargo company-lsp flycheck-irony company-irony irony prettier-js magit exec-path-from-shell babel font-lock dired json-mode web-mode flycheck flycheck-rust company js2-mode powerline autopair use-package)))
  '(vc-annotate-background "#222222")
  '(vc-annotate-color-map
    (quote
