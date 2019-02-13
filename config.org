@@ -14,13 +14,6 @@ This is me:
 	  user-mail-address "krzysztof.grobelak@gmail.com")
 #+END_SRC
 
-Organize windows nicely
-#+BEGIN_SRC emacs-lisp
-(use-package zoom
-  :ensure t
-  :config
-  (zoom-mode t))
-#+END_SRC
 
 * Common settings 
 
@@ -50,7 +43,8 @@ Especially since i did not fully know what i was exactly doing...but shhhhh.
 (setq use-package-always-ensure t)
 (require 'use-package)
 (use-package auto-compile
-  :config (auto-compile-on-load-mode))
+  :config 
+  (auto-compile-on-load-mode))
 (setq load-prefer-newer t)
 
 #+END_SRC
@@ -74,16 +68,20 @@ There is few pacakages that require this as dependency
 
 ** Buffers
 
-Ido package offers better management and switching of the minibuffer items
+The ivy, swiper and counsel combo
 #+BEGIN_SRC emacs-lisp
-(use-package ido)
-(ido-mode 1)
-#+END_SRC
-
-Fuzzy finders are great
-#+BEGIN_SRC emacs-lisp
-(use-package fzf
-  :ensure t)
+(use-package ivy
+  :ensure t
+  :init
+  (ivy-mode)
+  :config
+  (setq ivy-use-virtual-buffers t)
+  (setq enable-recursive-minibuffers t)
+  :bind
+  ("C-s" . swiper)
+  ("M-x" . counsel-M-x)
+  ("C-x C-f" . counsel-find-file)
+  ("C-c C-r" . ivy-resume))
 #+END_SRC
 
 Colorize strings
@@ -188,6 +186,12 @@ Maximize window on startup
 (add-hook 'window-setup-hook 'toggle-frame-maximized t)
 #+END_SRC
 
+Organize windows nicely
+#+BEGIN_SRC emacs-lisp
+(use-package zoom
+  :ensure t)
+#+END_SRC
+
 
 ** Backups and history
 Backups
@@ -244,16 +248,22 @@ For now just few helpers to quickly move the text around.
   (transpose-words 1)
   (backward-word 1))
 
-
 (defun kg/move-words-backward ()
   (interactive)
   (transpose-words 1)
   (backward-word 1))
 
+(defun kg/duplicate-region ()
+  (interactive)
+  (save-excursion
+	(beginning-of-line)
+	(insert (thing-at-point 'line))))
+
 (global-set-key (kbd "M-<up>") 'kg/move-line-up)
 (global-set-key (kbd "M-<down>") 'kg/move-line-down)
 (global-set-key (kbd "M-<right>") 'kg/move-words-forward)
 (global-set-key (kbd "M-<left>") 'kg/move-words-backward)
+(global-set-key (kbd "C-c d") 'kg/duplicate-region)
 
 #+END_SRC
 
@@ -268,21 +278,20 @@ Having this all in one place is massive productivity boost.
   :config
   (erc-autojoin-mode t)
   (erc-services-mode 1)
-
+  (setq erc-autojoin-timing 'ident)
   (setq erc-prompt-for-nickserv-password nil)
-  (setq erc-nickserv-passwords
-		'((freenode (("caspinol" . ,freenode-password))))))
-;; IRC auto connect on C-c ef
-(global-set-key "\C-cef" (lambda () 
-						   (interactive)
-                           (erc :server "irc.freenode.net"
-                                :port "6667"
-                                :nick "caspinol"
-                                )))
+  ;; now auto join channels
+  (setq erc-autojoin-channels-alist 
+		'(("freenode.net" "##c" "#emacs")))
+  
+  (global-set-key "\C-cef" (lambda ()
+			 (interactive)
+			 (erc 
+			  :server "irc.freenode.net"
+			  :port "6667"
+              :nick "caspinol"
+			  :password freenode-password))))
 
-;; now auto join channels
-(setq erc-autojoin-channels-alist '(("freenode.net"
-                                     "#rust" "##c" "#rust-embedded" "#rust-networking")))
 #+END_SRC
 
 
@@ -361,7 +370,8 @@ Git support. The tool is great so far but i only licked the surface so far.
 #+BEGIN_SRC emacs-lisp
 (use-package js2-mode
   :ensure t
-  :mode ("\\.js$" . js2-mode)
+  :mode 
+  ("\\.js$" . js2-mode)
   :config
   (setq js-indent-level 2))
 
@@ -369,21 +379,21 @@ Git support. The tool is great so far but i only licked the surface so far.
 (use-package prettier-js
   :ensure t
   :config
-  (setq prettier-js-args '(
-						   "--trailing-comma" "es5"
+  (setq prettier-js-args '("--trailing-comma" "es5"
 						   "--single-quote" "true"
-						   "--print-width" "100"
-						   ))
+						   "--print-width" "100"))
   (add-hook 'js2-mode-hook 'prettier-js-mode))
 #+END_SRC
 
 Replace the 'function' keyword with a shorthand symbol. Its just estetics...
 #+BEGIN_SRC emacs-lisp
 (font-lock-add-keywords
- 'js2-mode `(("\\(function\\).*("
-			  (0 (progn (compose-region (match-beginning 1)
-										(match-end 1) "\u0192")
-						nil)))))
+ 'js2-mode 
+ `(("\\(function\\).*(" (0 (progn 
+							 (compose-region 
+							  (match-beginning 1)
+							  (match-end 1) "\u0192")
+							 nil)))))
 #+END_SRC 
 
 
@@ -455,7 +465,8 @@ Trying our the new mode.
 #+BEGIN_SRC emacs-lisp
 (use-package rust-mode
   :ensure t
-  :mode ("\\.rs$" . rust-mode)
+  :mode 
+  ("\\.rs$" . rust-mode)
   :hook
   (rust-mode . (lambda()
 				 (local-set-key (kbd "TAB") 'company-indent-or-complete-common)))
@@ -522,10 +533,10 @@ Default org document directory
   :config
   (setq org-capture-templates
         '(("t" "TODO" entry 
-		   (file+headline org-default-notes-file "Task")
-           "* TODO %? %^G \n  %U" :empty-lines 1)
+		   (file+headline "~/Dropbox/OrgDoc/Agenda/life.org" "Task")
+           "* TODO %? %^G \nSCHEDULED: %^t\n  %U" :empty-lines 1)
           
-		  ("s" "Scheduled TODO" entry 
+		  ("w" "Work TODO" entry 
 		   (file+headline "~/Dropbox/OrgDoc/Projects/enet.org" "Task")
            "* TODO %? %^G \nSCHEDULED: %^t\n  %U" :empty-lines 1)
           

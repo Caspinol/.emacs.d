@@ -59,8 +59,8 @@ static char *gnus-pointer[] = {
  '(org-agenda-files
    (quote
 	("~/Dropbox/OrgDoc/Agenda/" "~/Dropbox/OrgDoc/Projects/" "~/Dropbox/OrgDoc/")))
- '(org-agenda-skip-scheduled-if-deadline-is-shown t)
- '(org-agenda-span (quote fortnight))
+ '(org-agenda-skip-scheduled-if-deadline-is-shown t t)
+ '(org-agenda-span (quote fortnight) t)
  '(org-capture-templates
    (quote
 	(("t" "TODO" entry
@@ -87,7 +87,7 @@ SCHEDULED: %^t
 	 ("n" "Note" entry
 	  (file+headline org-default-notes-file "Notes")
 	  "* %? %^G
-%U" :empty-lines 1))))
+%U" :empty-lines 1))) t)
  '(org-confirm-babel-evaluate nil)
  '(org-deadline-warning-days 7)
  '(org-default-notes-file "~/Dropbox/OrgDoc/refile.org")
@@ -100,7 +100,7 @@ SCHEDULED: %^t
  '(org-startup-indented t)
  '(package-selected-packages
    (quote
-	(zoom yasnippet yasnipped package-lint eglot ob-rust darktooth-theme kaolin-themes gruvbox-theme vue-mode vue-html-mode org-bullets rainbow-mode fzf markdown-preview-eww flycheck-mmark ox-hugo toml-mode cargo company-lsp flycheck-irony company-irony irony prettier-js magit exec-path-from-shell babel font-lock dired json-mode web-mode flycheck flycheck-rust company js2-mode powerline autopair use-package)))
+	(ivy zoom yasnippet yasnipped package-lint eglot ob-rust darktooth-theme kaolin-themes gruvbox-theme vue-mode vue-html-mode org-bullets rainbow-mode fzf markdown-preview-eww flycheck-mmark ox-hugo toml-mode cargo company-lsp flycheck-irony company-irony irony prettier-js magit exec-path-from-shell babel font-lock dired json-mode web-mode flycheck flycheck-rust company js2-mode powerline autopair use-package)))
  '(vc-annotate-background "#222222")
  '(vc-annotate-color-map
    (quote
@@ -122,7 +122,8 @@ SCHEDULED: %^t
 	 (320 . "#62b6ea")
 	 (340 . "#94bff3")
 	 (360 . "#e353b9"))))
- '(vc-annotate-very-old-color "#e353b9"))
+ '(vc-annotate-very-old-color "#e353b9")
+ '(zoom-mode t nil (zoom)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
