@@ -8,6 +8,7 @@
  '(custom-safe-themes
    (quote
 	("e2fd81495089dc09d14a88f29dfdff7645f213e2c03650ac2dd275de52a513de" "2a9039b093df61e4517302f40ebaf2d3e95215cb2f9684c8c1a446659ee226b9" "d2868794b5951d57fb30bf223a7e46f3a18bf7124a1c288a87bd5701b53d775a" "9f08dacc5b23d5eaec9cccb6b3d342bd4fdb05faf144bdcd9c4b5859ac173538" "7f89ec3c988c398b88f7304a75ed225eaac64efa8df3638c815acc563dfd3b55" "a0feb1322de9e26a4d209d1cfa236deaf64662bb604fa513cca6a057ddf0ef64" "ab04c00a7e48ad784b52f34aa6bfa1e80d0c3fcacc50e1189af3651013eb0d58" "04dd0236a367865e591927a3810f178e8d33c372ad5bfef48b5ce90d4b476481" "7356632cebc6a11a87bc5fcffaa49bae528026a78637acd03cae57c091afd9b9" "47ec21abaa6642fefec1b7ace282221574c2dd7ef7715c099af5629926eb4fd7" default)))
+ '(debug-on-error t)
  '(diary-entry-marker (quote font-lock-variable-name-face))
  '(emms-mode-line-icon-image-cache
    (quote
@@ -100,7 +101,7 @@ SCHEDULED: %^t
  '(org-startup-indented t)
  '(package-selected-packages
    (quote
-	(ivy zoom yasnippet yasnipped package-lint eglot ob-rust darktooth-theme kaolin-themes gruvbox-theme vue-mode vue-html-mode org-bullets rainbow-mode fzf markdown-preview-eww flycheck-mmark ox-hugo toml-mode cargo company-lsp flycheck-irony company-irony irony prettier-js magit exec-path-from-shell babel font-lock dired json-mode web-mode flycheck flycheck-rust company js2-mode powerline autopair use-package)))
+	(rjsx-mode company-web ac-js2 ac-js2-company smartparens-config smartparens ivy zoom yasnippet yasnipped package-lint eglot ob-rust darktooth-theme kaolin-themes gruvbox-theme vue-mode vue-html-mode org-bullets rainbow-mode fzf markdown-preview-eww flycheck-mmark ox-hugo toml-mode cargo company-lsp flycheck-irony company-irony irony prettier-js magit exec-path-from-shell babel font-lock dired json-mode web-mode flycheck flycheck-rust company js2-mode powerline autopair use-package)))
  '(vc-annotate-background "#222222")
  '(vc-annotate-color-map
    (quote
