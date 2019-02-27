@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: vxbase
+# key: vxbase
+# --
+export const state = () => ({
+  $0
+});
+
+export const mutations = {};
+
+export const getters = {};
+
+export const actions = {};

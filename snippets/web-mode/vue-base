@@ -1,0 +1,36 @@
+# -*- mode: snippet -*-
+# name: vbase
+# key: vbase
+# --
+<template>
+  
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+	
+	};
+  },
+  computed:{
+
+  },
+  watch:{
+
+  },
+  mounted() {
+    
+  },
+  beforeDestroy() {
+    	 
+  },
+  methods: {
+    
+  },
+};
+</script>
+
+<style scoped>
+ 
+</style>
