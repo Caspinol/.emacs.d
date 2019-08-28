@@ -27,7 +27,7 @@ repositories. If the need arises we can add it in.
 (unless (assoc-default "melpa" package-archives)
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t))
 (unless (assoc-default "melpa-stable" package-archives)
-  (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages") t))
+  (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t))
 
 #+END_SRC
 
@@ -69,19 +69,17 @@ There is few pacakages that require this as dependency
 ** Buffers
 
 The ivy, swiper and counsel combo
+
 #+BEGIN_SRC emacs-lisp
 (use-package ivy
-  :ensure t
+  :diminish (ivy-mode . "")
   :init
-  (ivy-mode)
+  (ivy-mode 1)
   :config
   (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t)
-  :bind
-  ("C-s" . swiper)
-  ("M-x" . counsel-M-x)
-  ("C-x C-f" . counsel-find-file)
-  ("C-c C-r" . ivy-resume))
+  (setq ivy-height 20)
+  (setq ivy-count-format "%d/%d "))
 #+END_SRC
 
 Colorize strings
@@ -222,8 +220,24 @@ Do not use tabs. Default 4 spaces.
 #+BEGIN_SRC emacs-lisp
 (setq-default indent-tabs-mode t)
 (setq-default tab-width 4)
+(setq debug-on-error nil)
 #+END_SRC
 
+
+#+BEGIN_SRC emacs-lisp
+(use-package iedit
+  :bind
+  ("C-c ;" . iedit-mode))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(use-package multiple-cursors
+:ensure t
+:bind
+("C->" . mc/mark-next-like-this)
+("C-<" . mc/mark-previous-like-this)
+("C-c C-<" . mc/mark-all-like-this))
+#+END_SRC
 
 * Custom functions
 
@@ -282,7 +296,7 @@ Having this all in one place is massive productivity boost.
   (setq erc-prompt-for-nickserv-password nil)
   ;; now auto join channels
   (setq erc-autojoin-channels-alist 
-		'(("freenode.net" "##c" "#emacs")))
+		'(("freenode.net" "##c" "##rust" "##rust-embedded")))
   
   (global-set-key "\C-cef" (lambda ()
 			 (interactive)
@@ -305,20 +319,23 @@ Now the meat of the config.
 (use-package company
   :ensure t
   :init
-  (setq company-minimum-prefix-length 2
-		company-require-match 0
-		company-selection-wrap-around t
-		company-dabbrev-downcase nil
-		company-tooltip-limit 20
-		company-tooltip-align-annotations 't
-		company-idle-delay .4
-		company-begin-commands '(self-insert-command))
+  (setq 
+   ; Show suggestion after the firs character
+   company-minimum-prefix-length 1
+   company-require-match 0
+   company-selection-wrap-around t
+   ; Dont downcase the names
+   company-dabbrev-downcase nil
+   company-tooltip-limit 20
+   company-tooltip-align-annotations 't
+   ; Show suggestion after small deyay
+   company-idle-delay .3
+	 ; Dont autocomplete numbers
+   company-dabbrev-char-regexp "[A-z:-]"
+   company-begin-commands '(self-insert-command))
   (eval-after-load 'company
-    '(add-to-list 'company-backends '(company-files
-									  company-capf
-									  company-abbrev
-									  company-dabbrev
-									  ac-js2-company)))
+    '(add-to-list 'company-backends '(ac-js2-company
+									  company-capf)))
   :config
   (global-company-mode t)
   :hook
