@@ -3,7 +3,7 @@
 
 I have been using emacs on and off for few years. Then i stopped using it in favour of the VSCode for all of my development.
 Recently, after few minor issues with the VSCode i decided to restart my relationship with Emacs. 
-I wiped my entire old config and decideed to start from *scratch* (wink, wink).
+I wiped my entire old config and decideed to start from ***scratch*** (wink, wink).
 
 
 * Global settings
